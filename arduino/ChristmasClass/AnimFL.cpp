@@ -53,7 +53,7 @@ void LightAnimation::AnimFLFirstLight(bool init = false)
   delay ( 50 * _speed / 100 );
 }
 
-void LightAnimation::AnimCylon(bool init = false)
+void LightAnimation::AnimFLCylon(bool init = false)
 {
   static uint8_t hue = 0; // once arrive last values it goes automatic to zero
 

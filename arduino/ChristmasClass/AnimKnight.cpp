@@ -16,7 +16,7 @@ void LightAnimation::AnimKnight( bool init = false)
     if (_movingLed == 0)
       _leds[0] = CRGB::Red;
     else
-      _leds[0].fadeToBlackBy(64);
+      _leds[0].fadeToBlackBy(128);
 
     for (int i = NUM_LEDS - 1; i > 0; i--)
       _leds[i] = _leds[i - 1];
@@ -26,7 +26,7 @@ void LightAnimation::AnimKnight( bool init = false)
     if (_movingLed == 0)
       _leds[NUM_LEDS - 1] = CRGB::Red;
     else
-      _leds[NUM_LEDS - 1].fadeToBlackBy(64);
+      _leds[NUM_LEDS - 1].fadeToBlackBy(128);
 
     for (int i = 0; i < NUM_LEDS - 1; i++)
       _leds[i] = _leds[i + 1];
@@ -34,7 +34,7 @@ void LightAnimation::AnimKnight( bool init = false)
 
   _movingLed ++;
 
-  if (_movingLed == NUM_LEDS - 10 )
+  if (_movingLed == NUM_LEDS - 1 )
   {
     _movingLed = 0;
     _sense = !_sense;

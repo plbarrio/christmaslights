@@ -53,33 +53,39 @@ LightAnimation::Update()
     AnimWave(_modeChanged);
     break;
   case 2:
+    AnimHeartBeat(_modeChanged);
+    break; 
+  case 3:
     AnimArianna(_modeChanged);
     break;
-  case 3:
+  case 4:
     AnimKnight(_modeChanged);
     break;
-  case 4:
+  case 5:
     AnimAlternating(_modeChanged);
     break;
-  case 5:
+  case 6:
     AnimDali(_modeChanged);
     break;
-  case 6:
-    AnimGlitter(_modeChanged);
-    break;
   case 7:
-    AnimFLStaticRandom(_modeChanged);
+    AnimGlitter(_modeChanged);  
     break;
   case 8:
-    AnimFLFirstLight(_modeChanged);
+    AnimRainDrops(_modeChanged);  
     break;
   case 9:
-    AnimFLFire2012(_modeChanged);
+    AnimFLStaticRandom(_modeChanged);
     break;
   case 10:
-    AnimCylon(_modeChanged);
+    AnimFLFirstLight(_modeChanged);
     break;
   case 11:
+    AnimFLFire2012(_modeChanged);
+    break;
+  case 12:
+    AnimFLCylon(_modeChanged);
+    break;
+  case 13:
     AnimFLJuggle(_modeChanged);
     break;
   }

@@ -74,7 +74,7 @@ class LightAnimation
     int  _mode=0;
 
     /// Total number of animations, it is used to return to the first animation.
-    int const MAX_MODES = 10;
+    int const MAX_MODES = 12;
 
     /// Indicates that the mode has just changed
     bool _modeChanged = true;
@@ -90,17 +90,19 @@ class LightAnimation
 
     // Different animations
     void AnimWave          (bool init = false);
+    void AnimHeartBeat     (bool init = false);
     void AnimArianna       (bool init = false);
     void AnimKnight        (bool init = false); 
     void AnimAlternating   (bool init = false); 
     void AnimDali          (bool init = false);
     void AnimGlitter       (bool init = false);
+    void AnimRainDrops     (bool init = false);
 
     // FastLight examples
     void AnimFLStaticRandom(bool init = false);
     void AnimFLFirstLight  (bool init = false);
     void AnimFLFire2012    (bool init = false);
-    void AnimCylon         (bool init = false);
+    void AnimFLCylon       (bool init = false);
     void AnimFLJuggle      (bool init = false);
 };
 #endif  LIGHTSCHEME_H
