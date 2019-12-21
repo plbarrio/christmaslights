@@ -1,10 +1,8 @@
 // Class that controls light Scheme
 // 
 
-
 #ifndef LIGHTANIMATION_H
 #define LIGHTANIMATION_H
-
 
 #include <Arduino.h>
 #include <FastLED.h>
@@ -14,6 +12,7 @@
 #define NUM_LEDS 50
 #endif
 
+// define the led strip output
 #ifndef LED_PIN
 #define LED_PIN 4
 #endif
@@ -75,7 +74,7 @@ class LightAnimation
     int  _mode=0;
 
     /// Total number of animations, it is used to return to the first animation.
-    int const MAX_MODES = 9;
+    int const MAX_MODES = 10;
 
     /// Indicates that the mode has just changed
     bool _modeChanged = true;
@@ -86,7 +85,7 @@ class LightAnimation
     /// number of the current led in moving light animations
     int _movingLed = 0;
 
-    /// direction of the animation
+    /// direction of the animation in upd/down animations
     bool _sense;
 
     // Different animations
@@ -94,6 +93,8 @@ class LightAnimation
     void AnimArianna       (bool init = false);
     void AnimKnight        (bool init = false); 
     void AnimAlternating   (bool init = false); 
+    void AnimDali          (bool init = false);
+    void AnimGlitter       (bool init = false);
 
     // FastLight examples
     void AnimFLStaticRandom(bool init = false);

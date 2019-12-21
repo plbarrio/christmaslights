@@ -212,7 +212,7 @@ void AnimKnight( bool init = false)
 
   _movingLed ++;
 
-  if (_movingLed == NUM_LEDS + 10 )
+  if (_movingLed == NUM_LEDS - 10 )
   {
     _movingLed = 0;
     _sense = !_sense;

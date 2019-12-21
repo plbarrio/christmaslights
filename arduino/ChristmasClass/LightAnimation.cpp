@@ -61,23 +61,36 @@ LightAnimation::Update()
   case 4:
     AnimAlternating(_modeChanged);
     break;
-    
   case 5:
-    AnimFLStaticRandom(_modeChanged);
+    AnimDali(_modeChanged);
     break;
   case 6:
-    AnimFLFirstLight(_modeChanged);
+    AnimGlitter(_modeChanged);
     break;
   case 7:
-    AnimFLFire2012(_modeChanged);
+    AnimFLStaticRandom(_modeChanged);
     break;
   case 8:
-    AnimCylon(_modeChanged);
+    AnimFLFirstLight(_modeChanged);
     break;
   case 9:
+    AnimFLFire2012(_modeChanged);
+    break;
+  case 10:
+    AnimCylon(_modeChanged);
+    break;
+  case 11:
     AnimFLJuggle(_modeChanged);
     break;
   }
+
+  // Control of _movingled if reaches any of both ends
+  // if reaches the end or begin, begin again
+  if (_movingLed >= NUM_LEDS )
+    _movingLed = 0;
+
+  if (_movingLed <= -1 )
+    _movingLed = NUM_LEDS -1;
 
   // return to mode not changed
   _modeChanged = false;
