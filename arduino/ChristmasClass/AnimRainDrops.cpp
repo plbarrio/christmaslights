@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include "LightAnimation.h"
 
-// Animation glitters
-// elects randomly a start led, color and direction
+/// RainDrops
+/// elects randomly a start led, and goes down due gravity
+///
+/// @param init indicates that we can make some sort of initialization
 void LightAnimation::AnimRainDrops(bool init = false)
 { 
   // First fade all

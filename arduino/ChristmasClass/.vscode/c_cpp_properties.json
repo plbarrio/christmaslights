@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/pedro/.arduino15/packages/esp32/tools/**",
+                "/home/pedro/.arduino15/packages/esp32/hardware/esp32/1.0.3/**",
+                "/home/pedro/Arduino/libraries/FastLED/**",
+                "/home/pedro/Descargas/arduino-1.8.4/tools/**",
+                "/home/pedro/Descargas/arduino-1.8.4/hardware/arduino/avr/**"
+            ],
+            "forcedInclude": [
+                "/home/pedro/Descargas/arduino-1.8.4/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

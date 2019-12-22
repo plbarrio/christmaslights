@@ -1,9 +1,10 @@
 #include <Arduino.h>
 #include "LightAnimation.h"
 
-
-// we move a sinus wave and iterate through different colours
-// we try to put one period in the whole led strip
+/// we move a sinus wave and iterate through different colours
+/// we try to put one period in the whole led strip
+///
+/// @param init indicates that we can make some sort of initialization
 void LightAnimation::AnimWave(bool init = false)
 
 { // waves

@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include "LightAnimation.h"
 
-
-// we move a sinus wave and iterate through different colours
-// we try to put one period in the whole led strip
+/// we move a sinus wave and iterate through different colours
+/// we try to put one period in the whole led strip
+/// @param init indicates that we can make some sort of initialization
 void LightAnimation::AnimHeartBeat(bool init = false)
 
 { // waves
@@ -16,7 +16,7 @@ void LightAnimation::AnimHeartBeat(bool init = false)
     _leds[0] = CHSV(color, 255, sin8 ( t * 255 / T ) / 2 + 32);
 
     // Copy all the leds
-    for (int i = 1; i < NUM_LEDS-1; i++)
+    for (int i = 1; i < NUM_LEDS; i++)
       _leds[i] = _leds[0];
       
     // increase time

@@ -1,8 +1,9 @@
 #include <Arduino.h>
 #include "LightAnimation.h"
 
-// Animation glitters
-// elects randomly a start led, color and direction
+/// Animation glitters
+/// elects randomly a start led, color and direction
+/// @param init indicates that we can make some sort of initialization
 void LightAnimation::AnimGlitter(bool init = false)
 { 
   // First fade all

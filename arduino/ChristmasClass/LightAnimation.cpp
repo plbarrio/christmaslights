@@ -1,9 +1,9 @@
-// FastLED library Meopixel is an alternative
+// FastLED library Neopixel is an alternative
 #include <Arduino.h>
 #include <FastLED.h>
 #include "LightAnimation.h"
 
-// Constructor
+/// Construct a new Light Animation:: Light Animation object
 LightAnimation::LightAnimation()
 {
   pinMode(LED_PIN, OUTPUT);
@@ -11,11 +11,13 @@ LightAnimation::LightAnimation()
   FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(_leds, NUM_LEDS);
 }
 
-// Destructor
+/// Destroy the Light Animation:: Light Animation object
 LightAnimation::~LightAnimation()
 {
 }
 
+/// Changes to a new Animation
+/// @param mode number of the new animation 
 LightAnimation::ChangeAnimation(int mode)
 {
   _mode = mode;
@@ -24,6 +26,7 @@ LightAnimation::ChangeAnimation(int mode)
   _modeChanged = true;
 }
 
+/// Changes to next Animation
 LightAnimation::ChangeNextAnimation()
 {
   _mode++;
@@ -36,13 +39,18 @@ LightAnimation::ChangeNextAnimation()
   _modeChanged = true;
 }
 
+/// Changes speed of Animations
+/// @param speed Speed of the animation 100 is normal
 LightAnimation::ChangeSpeed(int speed)
 {
   _speed = speed;
 }
 
+/// Changes Changes Brightness
+/// @param brightnes
 LightAnimation::ChangeBrightness(int brightnes)
 {
+  /// Not implemented
 }
 
 LightAnimation::Update()

@@ -1,5 +1,4 @@
 // Class that controls light Scheme
-// 
 
 #ifndef LIGHTANIMATION_H
 #define LIGHTANIMATION_H
@@ -31,8 +30,10 @@
 class LightAnimation
 {
   public:
-    // Constructor and destructor
+    /// Constructor and destructor
     LightAnimation();
+
+    /// Destructor
     ~LightAnimation();
 
     /// Update the ledstrip
@@ -43,7 +44,7 @@ class LightAnimation
 
     /// Change the animation
     ///
-    /// @param mode mode to animate
+    /// @param mode mode to animate  
     ChangeAnimation(int mode);
 
     /// Change to next animation

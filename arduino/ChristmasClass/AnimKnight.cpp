@@ -1,13 +1,13 @@
 #include <Arduino.h>
 #include "LightAnimation.h"
 
-// knight rider animation
+/// KnightRider animation
+/// 
+/// @param init indicates that we can make some sort of initialization
 void LightAnimation::AnimKnight( bool init = false)
-
 {
   // Sense left to right or right to left
-  
-  
+    
   if (init)
     _movingLed = 0;
 

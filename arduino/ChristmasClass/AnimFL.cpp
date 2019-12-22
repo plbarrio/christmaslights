@@ -6,8 +6,7 @@
 #include "LightAnimation.h"
 
 void LightAnimation::AnimFLStaticRandom(bool init = false)
-{ //Arianna
-
+{ 
   // counter we change every 50 isf _speed= 100 -> 1 second
   static int counter = 0;
 
@@ -30,7 +29,6 @@ void LightAnimation::AnimFLStaticRandom(bool init = false)
   
   delay ( 50 * _speed / 100 );
 }
-
 
 // No funona lo de WHITE
 // first light, a running white led

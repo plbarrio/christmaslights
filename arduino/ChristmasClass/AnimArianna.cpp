@@ -1,11 +1,15 @@
 #include <Arduino.h>
 #include "LightAnimation.h"
 
+/// Move a random color to top
+///
+/// @param init indicates that we can make some sort of initialization 
 void LightAnimation::AnimArianna(bool init = false)
 { //Arianna
 
   static int lastLED   = NUM_LEDS; // last led
 
+  // At initialization we start form the first led
   if (init){
     _movingLed = 0;
     lastLED   = NUM_LEDS;
@@ -38,4 +42,3 @@ void LightAnimation::AnimArianna(bool init = false)
 
   delay ( 50 * _speed / 100 );
 }
-
