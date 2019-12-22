@@ -2,11 +2,13 @@
 
 Arduino nano and WS2811 led strip using FastLED library project, with different animation modes, some original other adapted from FastLED examples, which are:
 - Sinusoidal Waves
+- Heart Beats
 - Random color running up.
 - KnightRider
 - Alternating odd and even
 - Dalí, painter brushes
 - Glitter, random brights
+- RainDrops,
 - FLStaticRandom
 - FLFirstLight
 - FLFire2012
@@ -42,5 +44,5 @@ It uses an arduino nano Ws2811 led strip and a button for change the different m
 
 * Examples from [Fast Led](http://fastled.io/) library
 * [Christmas Lights Arduino and WS2811](https://www.instructables.com/id/Christmas-Lights-Arduino-and-WS2811/) 
-* [Arduino Xmass tree]](https://visar78.jimdofree.com/)
+* [Arduino Xmass tree](https://visar78.jimdofree.com/)
 
