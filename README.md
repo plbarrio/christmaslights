@@ -1,5 +1,4 @@
 # Christmas tree lights
-{:.no_toc}
 
 Arduino nano and WS2811 led strip using FastLED library project, with different animation modes, some original other adapted from FastLED examples, which are:
 - Sinusoidal Waves
@@ -18,13 +17,13 @@ Arduino nano and WS2811 led strip using FastLED library project, with different 
 - FLJuggle
 
 <!-- blank line -->
-<figure class="video_container">
+<div class="video-fallback">
+  See the video: <a href="https://www.youtube.com/watch?v=xybO05xbBXc">demo</a>.
+</div>
+<figure class="video-container">
   <iframe src="https://www.youtube.com/embed/xybO05xbBXc" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
 <!-- blank line -->
-
-TOC
-{:toc}
 
 ## Hardware
 
