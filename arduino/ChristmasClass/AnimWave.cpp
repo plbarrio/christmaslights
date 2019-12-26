@@ -8,7 +8,6 @@
 void LightAnimation::AnimWave(bool init = false)
 
 { // waves
-    static int color = 0; // color of the wave
     static int t     = 0; // current "time"
 
     int T = NUM_LEDS;
@@ -18,7 +17,7 @@ void LightAnimation::AnimWave(bool init = false)
         _leds[i] = _leds[i + 1];
     
     // put color and value of last led
-    _leds[NUM_LEDS - 1] = CHSV(color, 255, sin8 ( t * 255 / T ) / 2 + 120);
+    _leds[NUM_LEDS - 1] = CHSV(_hue, 255, sin8 ( t * 255 / T ) / 2 + 120);
     
     // increase time
     t++;
@@ -27,11 +26,7 @@ void LightAnimation::AnimWave(bool init = false)
     if (t == T)
     {
         t = 0;
-        color++;
-        
-        // if colors end begin again
-        if (color > 255)
-            color = 0;
+        _hue++;
     }
 
     // delay to next

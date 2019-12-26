@@ -3,7 +3,7 @@
 // define a globall class G_Animation
 LightAnimation G_Animation;
 
-// pin where the nutton to change mode is connected
+// pin where the button to change mode is connected
 #define I_CHANGE_MODE 5
 
 void setup() {

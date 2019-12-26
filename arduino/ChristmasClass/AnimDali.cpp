@@ -10,7 +10,6 @@ void LightAnimation::AnimDali(bool init = false)
   // First fade all
   fadeToBlackBy( _leds, NUM_LEDS, 32);
 
-  static uint8_t hue  = 0;
   static int  length  = 0;
   
   // if we are not painting start a new
@@ -18,13 +17,13 @@ void LightAnimation::AnimDali(bool init = false)
   {
     _movingLed = random(NUM_LEDS);
     _sense     = !_sense;
-    hue        = random(256);
+    _hue       = random(256);
     length     = random(NUM_LEDS);
   }
   else 
   {
     // If we have not ended painting paint it
-    _leds[_movingLed] = CHSV(hue, 255, 255);
+    _leds[_movingLed] = CHSV(_hue, 255, 255);
 
     // Mark next pixel to be painted, decrease the remaining length
     // to be painted

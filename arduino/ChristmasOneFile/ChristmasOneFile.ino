@@ -1,17 +1,17 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-// number of Leds in the strip
+// Put here the number of LEDs you have.
 #define NUM_LEDS 50
 
-// define the led strip output
-#define LED_PIN 4
-
-// define here your type of strip
+// define here your type of strip.
 #define LED_TYPE WS2811
 
-// define here the order of the strip
+// define here the order of the strip.
 #define COLOR_ORDER RGB
+
+// define the led strip output number.
+#define LED_PIN 4
 
 // pin where the button to change mode is connected
 #define I_CHANGE_MODE 5
@@ -24,13 +24,17 @@ CRGB _leds[NUM_LEDS];
 int  _mode=0;
 
 /// Total number of animations, it is used to return to the first animation.
-int const MAX_MODES = 10;
+/// Once reached the end.
+int const MAX_MODES = 14;
 
-/// Indicates that the mode has just changed
+/// Indicates that the mode has just changed.
 bool _modeChanged = true;
   
-/// Actual speed 100 is normal
+/// Actual speed 100 is normal.
 int _speed = 100;
+
+/// Current color 0-255 if 255 and make _hue++ it automaticly goes to 0.
+uint8_t _hue  = 0;
 
 /// number of the current led in moving light animations
 int _movingLed = 0;
@@ -38,8 +42,8 @@ int _movingLed = 0;
 /// direction of the animation in upd/down animations
 bool _sense;
 
-// Palette for fire
-CRGBPalette16 _gPal;
+/// palette
+CRGBPalette16 _pal;
 
 // Setup
 void setup() {
@@ -111,11 +115,20 @@ void ChangeBrightness(int brightnes)
   //Not implemented
 }
 
+/// Add randomly glitter
+/// From FastLight Examples
+/// @param chanceOfGlitter of 256
+void AddGlitter( fract8 chanceOfGlitter) 
+{
+  if( random8() < chanceOfGlitter)
+  _leds[ random16(NUM_LEDS) ] += CRGB::White;
+}
+
 // we move a sinus wave and iterate through different colours
 // we try to put one period in the whole led strip
+/// @param init indicates that we can make some sort of initialization
 void AnimWave(bool init = false)
 { // waves
-    static int color = 0; // color of the wave
     static int t     = 0; // current "time"
 
     int T = NUM_LEDS;
@@ -125,7 +138,7 @@ void AnimWave(bool init = false)
         _leds[i] = _leds[i + 1];
     
     // put color and value of last led
-    _leds[NUM_LEDS - 1] = CHSV(color, 255, sin8 ( t * 255 / T ) / 2 + 120);
+    _leds[NUM_LEDS - 1] = CHSV(_hue, 255, sin8 ( t * 255 / T ) / 2 + 120);
     
     // increase time
     t++;
@@ -134,18 +147,46 @@ void AnimWave(bool init = false)
     if (t == T)
     {
         t = 0;
-        color++;
-        
-        // if colors end begin again
-        if (color > 255)
-            color = 0;
+        _hue++;
     }
 
     // delay to next
     delay ( 50 * _speed / 100 );
 }
 
-/// Animation pattern by my daughter
+// we move a sinus wave and iterate through different colours
+/// we try to put one period in the whole led strip
+/// @param init indicates that we can make some sort of initialization
+void AnimHeartBeat(bool init = false)
+{ 
+    static int t     = 0; // current "time"
+
+    int T = NUM_LEDS;
+    
+    // put color and value of first led
+    _leds[0] = CHSV(_hue, 255, sin8 ( t * 255 / T ) / 2 + 32);
+
+    // Copy all the leds
+    for (int i = 1; i < NUM_LEDS; i++)
+      _leds[i] = _leds[0];
+      
+    // increase time
+    t++;
+
+    // if the end of the wave Period start a new wave again and change color
+    if (t == T)
+    {
+        t = 0;
+        _hue++;
+    }
+
+    // delay to next
+    delay ( 50 * _speed / 100 );
+}
+
+/// Move a random color to top
+///
+/// @param init indicates that we can make some sort of initialization 
 void AnimArianna(bool init = false)
 { //Arianna
 
@@ -180,48 +221,32 @@ void AnimArianna(bool init = false)
   delay ( 50 * _speed / 100 );
 }
 
-/// knight rider animation by my son
+/// KnightRider animation
+/// 
+/// @param init indicates that we can make some sort of initialization
 void AnimKnight( bool init = false)
 {
- 
-  // Initialization  
+  fadeToBlackBy(_leds, NUM_LEDS,64); // attenuate every led a little
+
   if (init)
     _movingLed = 0;
 
-  // Sense left to right or right to left
-  if (_sense)
-  {
-    if (_movingLed == 0)
-      _leds[0] = CRGB::Red;
-    else
-      _leds[0].fadeToBlackBy(64);
+  if (_sense) // one direction
+    _leds[_movingLed]              = CRGB::Red;
+  else        // other direction
+    _leds[NUM_LEDS -1 -_movingLed] = CRGB::Red;
 
-    for (int i = NUM_LEDS - 1; i > 0; i--)
-      _leds[i] = _leds[i - 1];
-  }
-  else
-  {
-    if (_movingLed == 0)
-      _leds[NUM_LEDS - 1] = CRGB::Red;
-    else
-      _leds[NUM_LEDS - 1].fadeToBlackBy(64);
+    _movingLed ++;
 
-    for (int i = 0; i < NUM_LEDS - 1; i++)
-      _leds[i] = _leds[i + 1];
-  }
-
-  _movingLed ++;
-
-  if (_movingLed == NUM_LEDS - 10 )
-  {
-    _movingLed = 0;
-    _sense = !_sense;
-  }
-
+  if (_movingLed == NUM_LEDS )
+     _sense = !_sense;
+      
   delay( 50 * _speed / 100 );
 }
 
-/// Alternating odd leds and evens
+/// Alternating between odds an evens
+///
+/// @param init indicates that we can make some sort of initialization 
 void AnimAlternating(bool init = false)
 {
 
@@ -260,48 +285,45 @@ void AnimAlternating(bool init = false)
   delay ( 50 * _speed / 100 );
 }
 
-// Animation as painter brushes
-// elects randomly a start led, color, length and direction
+/// Animation as painter brushes
+/// elects randomly a start led, color and direction
+///
+/// @param init indicates that we can make some sort of initialization 
 void AnimDali(bool init = false)
 { 
   // First fade all
   fadeToBlackBy( _leds, NUM_LEDS, 32);
 
-  // counter we change every 50 isf _speed= 100 -> 1 second
-  static int  counter = 0;
-  static uint8_t hue  = 0;
   static int  length  = 0;
   
-  if (counter == 0 )
+  // if we are not painting start a new
+  if (length == 0 )
   {
     _movingLed = random(NUM_LEDS);
     _sense     = !_sense;
-    hue        = random(256);
+    _hue       = random(256);
     length     = random(NUM_LEDS);
-    counter ++;
   }
   else 
   {
-    if (length > 0)
-    {
-        _leds[_movingLed] = CHSV(hue, 255, 255);
-        if (_sense)
-            _movingLed++;
-        else
-            _movingLed--;
-        length --;
-    }
+    // If we have not ended painting paint it
+    _leds[_movingLed] = CHSV(_hue, 255, 255);
+
+    // Mark next pixel to be painted, decrease the remaining length
+    // to be painted
+    if (_sense)
+        _movingLed++;
     else
-    {
-        counter =0;
-    }
-  }
+        _movingLed--;
+    length --;
+ }
   
   delay ( 50 * _speed / 100 );
 }
 
-// Animation glitters
-// elects randomly a led, and fade off all
+/// Animation glitters
+/// elects randomly a start led, color and direction
+/// @param init indicates that we can make some sort of initialization
 void AnimGlitter(bool init = false)
 { 
   // First fade all
@@ -310,6 +332,56 @@ void AnimGlitter(bool init = false)
   // Glitter
   _leds[ random16(NUM_LEDS) ] += CRGB::White;
 
+  delay ( 50 * _speed / 100 );
+}
+
+/// RainDrops
+/// elects randomly a start led, and goes down due gravity
+///
+/// @param init indicates that we can make some sort of initialization
+void AnimRainDrops(bool init = false)
+{ 
+  // Generate new drops
+  AddGlitter(20);
+
+  // Copy every white led down
+  for (int i =  0; i < NUM_LEDS; i++)
+  {
+        // copy to previous if white (r=g=b=255) and is not the first
+        if ( (_leds[i].r ==  255 ) && ( i != 0 ) )
+           _leds[ i - 1 ] = _leds[i]; 
+
+        // fade to black
+        _leds[i].fadeToBlackBy(64); 
+  }
+     
+  delay ( 25 * _speed / 100 );
+}
+
+/// Lightings
+/// like glitter but with length
+///
+/// @param init indicates that we can make some sort of initialization
+void AnimLightings(bool init = false)
+{ 
+  // First fade all
+  fadeToBlackBy( _leds, NUM_LEDS, 128);
+
+  // Choice of lighting 
+  if( random8() < 40) {
+    int nled   = random16(NUM_LEDS);
+    int length = random16(NUM_LEDS/4);
+      
+    // copy up and down, check limits
+    for (int i =  0; i < length; i++){
+      if ( (nled+ i ) < NUM_LEDS )
+        _leds[ nled + i ] += CRGB::White;
+        
+      if ( (nled-i ) >= NUM_LEDS )
+        _leds[ nled - i ] += CRGB::White;
+    }
+    
+  }
   delay ( 50 * _speed / 100 );
 }
 
@@ -342,8 +414,7 @@ void AnimFLStaticRandom(bool init = false)
 
 // first light, a running white led
 void AnimFLFirstLight(bool init = false)
-{ //Arianna
-  
+{
   // Delete last one
   _leds[_movingLed] = CRGB::Black;
   
@@ -361,19 +432,17 @@ void AnimFLFirstLight(bool init = false)
 }
 
 // no idea what is this
-void AnimCylon(bool init = false)
+void AnimFLCylon(bool init = false)
 {
-  static uint8_t hue = 0; // once arrive last values it goes automatic to zero
-
   fadeToBlackBy(_leds, NUM_LEDS,16); // atenuate every led a little
 
   if (init)
     _movingLed = 0;
 
   if (_sense) // one direction
-    _leds[_movingLed]            = CHSV(hue++, 255, 255);
+    _leds[_movingLed]              = CHSV(_hue++, 255, 255);
   else // other direction
-    _leds[NUM_LEDS -1 -_movingLed] = CHSV(hue++, 255, 255);
+    _leds[NUM_LEDS -1 -_movingLed] = CHSV(_hue++, 255, 255);
 
     _movingLed ++;
 
@@ -387,7 +456,7 @@ void AnimCylon(bool init = false)
 void AnimFLFire2012(bool init = false)
 {
   if (init)
-    _gPal = HeatColors_p;
+    _pal = HeatColors_p;
   
   // Add entropy to random number generator; we use a lot of it.
   random16_add_entropy( random());
@@ -417,7 +486,7 @@ void AnimFLFire2012(bool init = false)
     for( int j = 0; j < NUM_LEDS; j++) {
       // Scale the heat value from 0-255 down to 0-240
       // for best results with color palettes.
-      _leds[j] = ColorFromPalette( _gPal,  scale8(heat[j], 240));
+      _leds[j] = ColorFromPalette( _pal,  scale8(heat[j], 240));
      
     }
   delay ( 50 * _speed / 100 );
@@ -440,39 +509,48 @@ void AnimationUpdate()
 {
   switch (_mode)
   {
-  case 1:
-    AnimWave(_modeChanged);
-    break;
-  case 2:
-    AnimArianna(_modeChanged);
-    break;
-  case 3:
-    AnimKnight(_modeChanged);
-    break;
-  case 4:
-    AnimAlternating(_modeChanged);
-    break;
-  case 5:
-    AnimDali(_modeChanged);
-    break;
-  case 6:
-    AnimGlitter(_modeChanged);
-    break;
-  case 7:
-    AnimFLStaticRandom(_modeChanged);
-    break;
-  case 8:
-    AnimFLFirstLight(_modeChanged);
-    break;
-  case 9:
-    AnimFLFire2012(_modeChanged);
-    break;
-  case 10:
-    AnimCylon(_modeChanged);
-    break;
-  case 11:
-    AnimFLJuggle(_modeChanged);
-    break;
+    case 1:
+      AnimWave(_modeChanged);
+      break;
+    case 2:
+      AnimHeartBeat(_modeChanged);
+      break; 
+    case 3:
+      AnimArianna(_modeChanged);
+      break;
+    case 4:
+      AnimKnight(_modeChanged);
+      break;
+    case 5:
+      AnimAlternating(_modeChanged);
+      break;
+    case 6:
+      AnimDali(_modeChanged);
+      break;
+    case 7:
+      AnimGlitter(_modeChanged);  
+      break;
+    case 8:
+      AnimRainDrops(_modeChanged);  
+      break;
+    case 9:
+      AnimLightings(_modeChanged);
+      break;
+    case 10:
+      AnimFLStaticRandom(_modeChanged);
+      break;
+    case 11:
+      AnimFLFirstLight(_modeChanged);
+      break;
+    case 12:
+      AnimFLFire2012(_modeChanged);
+      break;
+    case 13:
+      AnimFLCylon(_modeChanged);
+      break;
+    case 14:
+      AnimFLJuggle(_modeChanged);
+      break;
   }
 
   // Control of _movingled if reaches any of both ends

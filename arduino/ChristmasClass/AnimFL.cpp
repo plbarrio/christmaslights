@@ -1,10 +1,11 @@
-/* Copied from
+/* Adapted from
  *  FastLedExamples
  */
 
 #include <Arduino.h>
 #include "LightAnimation.h"
 
+/// Fixed random colors
 void LightAnimation::AnimFLStaticRandom(bool init = false)
 { 
   // counter we change every 50 isf _speed= 100 -> 1 second
@@ -30,11 +31,9 @@ void LightAnimation::AnimFLStaticRandom(bool init = false)
   delay ( 50 * _speed / 100 );
 }
 
-// No funona lo de WHITE
-// first light, a running white led
+/// first light, a running white led
 void LightAnimation::AnimFLFirstLight(bool init = false)
-{ //Arianna
-  
+{  
   // Delete last one
   _leds[_movingLed] = CRGB::Black;
   
@@ -53,37 +52,28 @@ void LightAnimation::AnimFLFirstLight(bool init = false)
 
 void LightAnimation::AnimFLCylon(bool init = false)
 {
-  static uint8_t hue = 0; // once arrive last values it goes automatic to zero
-
-  fadeToBlackBy(_leds, NUM_LEDS,16); // atenuate every led a little
+  fadeToBlackBy(_leds, NUM_LEDS,16); // attenuate every led a little
 
   if (init)
     _movingLed = 0;
 
   if (_sense) // one direction
-    _leds[_movingLed]            = CHSV(hue++, 255, 255);
+    _leds[_movingLed]              = CHSV(_hue++, 255, 255);
   else // other direction
-    _leds[NUM_LEDS -1 -_movingLed] = CHSV(hue++, 255, 255);
+    _leds[NUM_LEDS -1 -_movingLed] = CHSV(_hue++, 255, 255);
 
     _movingLed ++;
 
   if (_movingLed == NUM_LEDS )
-  {
-    _movingLed = 0;
-    _sense = !_sense;
-  }
-    
+     _sense = !_sense;
+      
     delay ( 50 * _speed / 100 );
   }
-
-
-// esto aquí no me gusta
-CRGBPalette16 gPal;
 
 void LightAnimation::AnimFLFire2012(bool init = false)
 {
   if (init)
-    gPal = HeatColors_p;
+    _pal = HeatColors_p;
   
   // Add entropy to random number generator; we use a lot of it.
   random16_add_entropy( random());
@@ -113,7 +103,7 @@ void LightAnimation::AnimFLFire2012(bool init = false)
     for( int j = 0; j < NUM_LEDS; j++) {
       // Scale the heat value from 0-255 down to 0-240
       // for best results with color palettes.
-      _leds[j] = ColorFromPalette( gPal,  scale8(heat[j], 240));
+      _leds[j] = ColorFromPalette( _pal,  scale8(heat[j], 240));
      
     }
   delay ( 50 * _speed / 100 );
