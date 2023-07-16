@@ -842,9 +842,9 @@ WS2812
 <attribute name="NAME" x="2.54" y="40.64" size="1.778" layer="95"/>
 <attribute name="VALUE" x="2.54" y="38.1" size="1.778" layer="96"/>
 </instance>
-<instance part="SW1" gate="G$1" x="-27.94" y="63.5" smashed="yes">
-<attribute name="NAME" x="-35.57291875" y="69.09746875" size="1.781009375" layer="95"/>
-<attribute name="VALUE" x="-35.574059375" y="56.120409375" size="1.78128125" layer="96"/>
+<instance part="SW1" gate="G$1" x="-27.94" y="58.42" smashed="yes">
+<attribute name="NAME" x="-35.57291875" y="64.01746875" size="1.781009375" layer="95"/>
+<attribute name="VALUE" x="-35.574059375" y="51.040409375" size="1.78128125" layer="96"/>
 </instance>
 <instance part="U1" gate="U1" x="68.58" y="76.2" smashed="yes">
 <attribute name="NAME" x="55.88" y="84.582" size="1.778" layer="95"/>
@@ -859,14 +859,14 @@ WS2812
 <pinref part="ARDUINO_NANO1" gate="G$1" pin="GND@1"/>
 <pinref part="SW1" gate="G$1" pin="1"/>
 <wire x1="-2.54" y1="76.2" x2="-38.1" y2="76.2" width="0.1524" layer="91"/>
-<wire x1="-38.1" y1="76.2" x2="-38.1" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="-38.1" y1="76.2" x2="-38.1" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
 <pinref part="SW1" gate="G$1" pin="3"/>
-<pinref part="ARDUINO_NANO1" gate="G$1" pin="D5/T1"/>
-<wire x1="-20.32" y1="66.04" x2="-2.54" y2="66.04" width="0.1524" layer="91"/>
+<pinref part="ARDUINO_NANO1" gate="G$1" pin="D7/AIN1"/>
+<wire x1="-20.32" y1="60.96" x2="-2.54" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -888,13 +888,13 @@ WS2812
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="ARDUINO_NANO1" gate="G$1" pin="D4/T0"/>
-<wire x1="-2.54" y1="68.58" x2="-10.16" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="-10.16" y1="68.58" x2="-10.16" y2="35.56" width="0.1524" layer="91"/>
 <wire x1="-10.16" y1="35.56" x2="88.9" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="U1" gate="U1" pin="DI"/>
 <wire x1="88.9" y1="35.56" x2="88.9" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="81.28" x2="81.28" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="-10.16" y1="35.56" x2="-10.16" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="ARDUINO_NANO1" gate="G$1" pin="D6/AIN0"/>
+<wire x1="-10.16" y1="63.5" x2="-2.54" y2="63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
