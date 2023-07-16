@@ -31,8 +31,8 @@ Check [https://www.instructables.com/id/Arduino-WS2811-Christmas-Tree/](https://
 
 ### Bill Of Materials (BOM)
 
-- [Arduino nano](https://aliexpress.com/item/32531372300.html). I ordered one with pins unsoldered since I soldered directly on the board. 
-- [WS2811 50 LED strip](https://aliexpress.com/item/32444134206.html). There are also with [green cables](https://aliexpress.com/item/32444382333.htm) that are more discrete. 
+- [Arduino nano](https://aliexpress.com/item/32341832857.html). I ordered one with pins unsoldered since I soldered directly on the board. 
+- [WS2811 50 LED strip](https://aliexpress.com/item/32444134206.html). There are also with [green cables](https://aliexpress.com/item/32341832857.html) that are more discrete. 
 - [Switch](https://aliexpress.com/item/32964605422.html). One with a long button is better. 
 - USB charger. A used one from a cellular phone.  
 - USB Cable type A male <-> type mini-B male. Reused from an old camera.  
@@ -58,8 +58,8 @@ There are many types of addressable LED strips. The ones based in WS281x are ver
 
 |Arduino	|LED strip  |  Notes  |
 |:---------:|:---------:|---------|
-|VIN		| +5V       | Directly from USB |
-|D4         | Din       | 5V logic       |
+|VIN        | +5V       | Directly from USB |
+|D6         | Din       | 5V logic       |
 |GND        | GND       |         |
 
 #### Microcontroller
@@ -83,3 +83,7 @@ It is connected to _GND_ because we use the internal [pull-up resistor](https://
 * [Christmas Lights Arduino and WS2811](https://www.instructables.com/id/Christmas-Lights-Arduino-and-WS2811/) 
 * [Arduino Xmass tree](https://visar78.jimdofree.com/)
 
+## Revisions
+1. Changed I/O to use D4 and D5 for SCL communication in further projects
+	* D4 -> D6
+	* D5 -> D7

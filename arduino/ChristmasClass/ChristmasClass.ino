@@ -4,7 +4,7 @@
 LightAnimation G_Animation;
 
 // pin where the button to change mode is connected
-#define I_CHANGE_MODE 5
+#define I_CHANGE_MODE 7
 
 void setup() {
   // Serial for debugging

@@ -14,7 +14,7 @@
 
 // define the led strip output number.
 #ifndef LED_PIN
-#define LED_PIN 4
+#define LED_PIN 6
 #endif
 
 // define here your type of the strip.

@@ -7,14 +7,14 @@
 // define here your type of strip.
 #define LED_TYPE WS2811
 
-// define here the order of the strip.
+// define here the color order of the strip.
 #define COLOR_ORDER RGB
 
 // define the led strip output number.
-#define LED_PIN 4
+#define LED_PIN 6
 
 // pin where the button to change mode is connected
-#define I_CHANGE_MODE 5
+#define I_CHANGE_MODE 7
 
 // Global variables
 /// Led array
@@ -33,13 +33,13 @@ bool _modeChanged = true;
 /// Actual speed 100 is normal.
 int _speed = 100;
 
-/// Current color 0-255 if 255 and make _hue++ it automaticly goes to 0.
+/// Current color 0-255 if 255 and make _hue++ it automatically goes to 0.
 uint8_t _hue  = 0;
 
 /// number of the current led in moving light animations
 int _movingLed = 0;
 
-/// direction of the animation in upd/down animations
+/// direction of the animation in up/down animations
 bool _sense;
 
 /// palette
@@ -86,7 +86,7 @@ void ChangeAnimation(int mode)
 {
   _mode = mode;
 
-  // flag that mode has changed for initializations
+  // flag that mode has changed -for initializations-
   _modeChanged = true;
 }
 
@@ -95,21 +95,21 @@ void ChangeNextAnimation()
 {
   _mode++;
 
-  // if we reached the total of animation return to firt one
+  // if we reached the total of animations return to first one
   if (_mode > MAX_MODES)
     _mode = 1;
 
-  // flag that mode has changed for initializations
+  // set flag that mode has changed -for initializations-
   _modeChanged = true;
 }
 
-/// Change speed of animations
+/// set speed of animations
 void ChangeSpeed(int speed)
 {
   _speed = speed;
 }
 
-/// Change brightness
+/// set brightness
 void ChangeBrightness(int brightnes)
 {
   //Not implemented
@@ -124,8 +124,8 @@ void AddGlitter( fract8 chanceOfGlitter)
   _leds[ random16(NUM_LEDS) ] += CRGB::White;
 }
 
-// we move a sinus wave and iterate through different colours
-// we try to put one period in the whole led strip
+/// we move a sinus wave and iterate through different colours
+/// we try to put one period in the whole led strip
 /// @param init indicates that we can make some sort of initialization
 void AnimWave(bool init = false)
 { // waves
@@ -154,8 +154,7 @@ void AnimWave(bool init = false)
     delay ( 50 * _speed / 100 );
 }
 
-// we move a sinus wave and iterate through different colours
-/// we try to put one period in the whole led strip
+/// Like waves but static, the whole strip fades in an out
 /// @param init indicates that we can make some sort of initialization
 void AnimHeartBeat(bool init = false)
 { 
@@ -386,6 +385,7 @@ void AnimLightings(bool init = false)
 }
 
 // From FasLED examples
+/// @param init indicates that we can make some sort of initialization
 void AnimFLStaticRandom(bool init = false)
 { 
   // counter we change every 50 isf _speed= 100 -> 1 second
@@ -412,7 +412,8 @@ void AnimFLStaticRandom(bool init = false)
 }
 
 
-// first light, a running white led
+/// first light, a running white led
+/// @param init indicates that we can make some sort of initialization
 void AnimFLFirstLight(bool init = false)
 {
   // Delete last one
@@ -431,10 +432,11 @@ void AnimFLFirstLight(bool init = false)
   delay ( 50 * _speed / 100 );
 }
 
-// no idea what is this
+/// no idea what is this
+/// @param init indicates that we can make some sort of initialization
 void AnimFLCylon(bool init = false)
 {
-  fadeToBlackBy(_leds, NUM_LEDS,16); // atenuate every led a little
+  fadeToBlackBy(_leds, NUM_LEDS,16); // attenuates every led a little
 
   if (init)
     _movingLed = 0;
@@ -452,7 +454,8 @@ void AnimFLCylon(bool init = false)
     delay ( 50 * _speed / 100 );
   }
 
-// Fire from fastLED examples
+/// Fire from fastLED examples
+/// @param init indicates that we can make some sort of initialization
 void AnimFLFire2012(bool init = false)
 {
   if (init)
@@ -492,7 +495,8 @@ void AnimFLFire2012(bool init = false)
   delay ( 50 * _speed / 100 );
 }
 
-// Juggle form fastLED examples
+/// Juggle form fastLED examples
+/// @param init indicates that we can make some sort of initialization
 void AnimFLJuggle(bool init = false) {
   // eight colored dots, weaving in and out of sync with each other
   fadeToBlackBy( _leds, NUM_LEDS, 32);
@@ -504,7 +508,7 @@ void AnimFLJuggle(bool init = false) {
    delay ( 50 * _speed / 100 );
 }
 
-/// Updates the animation, if there is a mode change it changes the mode informating tha mode has just changed
+/// Updates the animation, if there is a mode change it changes the mode informating that mode has just changed
 void AnimationUpdate()
 {
   switch (_mode)
